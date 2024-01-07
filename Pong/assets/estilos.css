@@ -1,0 +1,94 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+@font-face {
+    font-family: 'VCR';
+    src: url(../assets/VCR_OSD_MONO_1.001.ttf);
+}
+body {
+    height: 100vh;
+    background-color: #151515;
+    display: grid;
+    grid-template-rows: 100%;
+    grid-template-columns: 1fr 60px  1fr;
+    grid-template-areas: "c1" "dv" "c2";
+}
+#inicio {
+    position: absolute; 
+    height: 100vh;
+    width: 100vw;
+    color: #f0f0f0;
+    font-family: VCR;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+#pong {
+    position: relative;
+    left: 400px;
+    letter-spacing: 90px;
+    font-size: 200px;
+}
+#empezar {
+    position: relative;
+    top: 240px;
+    right: 400px;
+    font-size: 30px;
+}
+#div1 {
+    grid-area: c1;
+    height: 40%;
+    background-color: #f0f0f0;
+    width: 70px;
+    position: absolute;
+    top: 25%;
+    left: 20px;
+}
+#divisor {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+#divisor > div {
+    grid-area: dv;
+    height: 40px;
+    width: 40px;
+    background-color: #f0f0f0;
+}
+#div2 {
+    grid-area: c2;
+    height: 40%;
+    background-color: #f0f0f0;
+    width: 70px;
+    position: absolute;
+    top: 25%;
+    right: 20px;
+}
+#pelota {
+    height: 50px;
+    width: 50px;
+    background-color: #f0f0f0;
+    position: absolute;
+    top: 50%;
+    left: 60%;
+}
+#contador1 {
+    color: #f0f0f0;
+    position: absolute;
+    top: 20px;
+    left: 600px;
+    font-size: 150px;
+    font-family: VCR;
+}
+
+#contador2 {
+    color: #f0f0f0;
+    position: absolute;
+    top: 20px;
+    right: 600px;
+    font-size: 150px;
+    font-family: VCR;
+}

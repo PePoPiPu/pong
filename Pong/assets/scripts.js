@@ -1,4 +1,6 @@
-var direction = 1;
+var direccion = 1;
+var direccionPelotaY = 1;
+var direccionPelotaX = 1;
 function fInicio() {
     document.querySelector('#divisor').style.display = 'none';
     document.querySelector('#pelota').style.display = 'none';
@@ -14,69 +16,86 @@ function fEmpezar() {
     document.querySelector('#inicio').style.display = 'none';
 
     // Mover la posición de la paleta izquierda de arriba a abajo
-    setInterval(fMoverAbajoD, 10)
-    setInterval(moveRightPaddle, 10)
-    setInterval(movePelota, 10)
+    setInterval(fMoverAbajoD, 10);
+    setInterval(fMoverPelota, 10);
 }
-
-
 
 function fMoverAbajoD() {
     var div1 = document.getElementById('div1');
     var div1TopPos = div1.offsetTop;
     var windowHeight = window.innerHeight;
 
-    var newTopPos = div1TopPos + (1 * direction);
+    var topPosNueva = div1TopPos + (1 * direccion);
 
-    if (newTopPos + div1.clientHeight <= windowHeight && newTopPos >= 0) {
-        div1.style.top = newTopPos + 'px';
+    if (topPosNueva + div1.clientHeight <= windowHeight && topPosNueva >= 0) {
+        div1.style.top = topPosNueva + 'px';
     } else {
-        direction *= -1;
+        direccion *= -1;
+    }
+}
+
+function fMoverPelota() {
+    // Declaración de elementos
+    var pelota = document.getElementById('pelota');
+    var palaDerecha = document.getElementById('div2');
+    var palaIzquierda = document.getElementById('div1');
+    // Declaración de altura y anchura de la pantalla
+    var windowHeight = window.innerHeight;
+    var windowWidth = window.innerWidth;
+    // Declaración de las posiciones de los bordes de la pelota
+    var pelotaTopPos = pelota.offsetTop;
+    var pelotaLeftPos = pelota.offsetLeft;
+    var palaDerechaLeft = palaDerecha.offsetLeft;
+
+    // Declaramos nuevas direcciones
+    var pelotaTopPosNueva = pelotaTopPos + (5 * direccionPelotaY);
+    var pelotaLeftPosNueva  = pelotaLeftPos + (5 * direccionPelotaX);
+    // Mover la pelota en el eje de coordenadas Y, rebotar si toca con cualquiera de las palas
+    if ((pelotaTopPosNueva + pelota.clientHeight <= windowHeight && pelotaTopPosNueva >= 0) && (pelotaLeftPosNueva + pelota.clientWidth <= palaDerechaLeft) && (pelotaLeftPosNueva >= palaIzquierda.clientWidth)) {
+        pelota.style.top = pelotaTopPosNueva + 'px';
+    } else {
+        direccionPelotaY *= -1;
+    }
+
+    // Mover la pelota en el eje de coordenadas X, rebotar si toca con cualquiera de las palas
+    if ((pelotaLeftPosNueva + pelota.clientWidth <= palaDerechaLeft) && (pelotaLeftPosNueva >= palaIzquierda.clientWidth)) {
+        pelota.style.left = pelotaLeftPosNueva + 'px';
+    } else {
+        direccionPelotaX *= -1;
     }
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-    var rightPaddle = document.getElementById('div2');
-    var directionY = 0; // 1 for down, -1 for up
+    var palaDerecha = document.getElementById('div2');
+    var direccionY = 0;
 
-    function moveRightPaddle() {
-        var paddleTopPos = rightPaddle.offsetTop;
+    function moverPalaDerecha() {
+        var palTopPos = palaDerecha.offsetTop;
         var windowHeight = window.innerHeight;
 
-        // Increment or decrement the top position based on the direction
-        var newTopPos = paddleTopPos + (5 * directionY); // Adjust the speed as needed
 
-        // Check if the new top position exceeds the window height or goes above 0
-        if (newTopPos + rightPaddle.clientHeight <= windowHeight && newTopPos >= 0) {
-            // Set the new top position to the paddle's style
-            rightPaddle.style.top = newTopPos + 'px';
+        var topPosNueva = palTopPos + (5 * direccionY);
+
+
+        if (topPosNueva + palaDerecha.clientHeight <= windowHeight && topPosNueva >= 0) {
+            palaDerecha.style.top = topPosNueva + 'px';
         }
     }
 
-    // Event listener for key presses
     document.addEventListener('keydown', function (event) {
         event.preventDefault();
         if (event.key === 'ArrowDown') {
-            directionY = 1;
-            moveRightPaddle();
+            direccionY = 1;
+            moverPalaDerecha();
         } else if (event.key === 'ArrowUp') {
-            directionY = -1;
-            moveRightPaddle();
+            direccionY = -1;
+            moverPalaDerecha();
         }
     });
 
-    // Event listener for key releases
     document.addEventListener('keyup', function (event) {
         if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
-            directionY = 0;
+            direccionY = 0;
         }
     });
-
-    var pelota = document.getElementById('pelota');
-    var directionX = -1; // 1 for right, -1 for left
-    var directionY = 1; // 1 for down, -1 for up
-    
-    var pelota = document.getElementById('pelota');
-var directionX = -1; // 1 for right, -1 for left
-var directionY = 1; // 1 for down, -1 for up
 });
